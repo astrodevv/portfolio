@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Blog — Lorem Ipsum{% endblock %}
+
+{% block content %}
+
+<section class="section blog-page" id="blog">
+  <h1 class="section-title blog-heading">Blog</h1>
+  <p class="blog-subtitle">Best highlights of my career</p>
+  {% regroup blogs by created_at.year as year_list %}
+
+  {% for year_group in year_list %}
+  <div class="blog-year-group">
+    <h2 class="blog-year">{{ year_group.grouper }}</h2>
+    {% for post in year_group.list %}
+    <a href="{{ post.get_absolute_url }}" class="blog-row" data-reveal="left">
+      <span class="blog-row-date">{{ post.created_at|date:"b d"|title }}</span>
+      <span class="blog-row-title">{{ post.title }}</span>
+      <svg class="blog-row-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+    </a>
+    {% endfor %}
+  </div>
+  {% empty %}
+      <p>
+        Posts Not Found!
+      </p>
+  {% endfor %}
+</section>
+
+{% endblock %}

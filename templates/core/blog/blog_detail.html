@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Lorem Ipsum Dolor — Blog{% endblock %}
+
+{% block content %}
+
+<section class="section post-detail">
+
+  <a href="{% url 'blog_list' %}" class="back-pill">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6" /></svg>
+    Back to Blog
+  </a>
+
+  <header class="post-detail-header">
+    <h1 class="post-detail-title">{{ blog.title }}</h1>
+    <span class="post-detail-date">{{ blog.created_at|date:"F d, Y" }}</span>
+  </header>
+
+
+  <div class="post-detail-body">
+    
+    {% if blog.image %}
+      <div class="post-detail-image">
+        <img src="{{ blog.image.url }}" alt="{{ blog.title }}">
+      </div>
+    {% endif %}
+
+    
+    {{ blog.text|linebreaks }}
+    
+  </div>
+
+  <nav class="post-nav">
+    {% if prev_post %}
+      <a href="{{ prev_post.get_absolute_url }}" class="post-nav-card post-nav-prev">
+        <span class="post-nav-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6" /></svg>
+          Previous
+        </span>
+        <span class="post-nav-title">{{ prev_post.title }}</span>
+      </a>
+    {% endif %}
+
+    {% if next_post %}
+      <a href="{{ next_post.get_absolute_url }}" class="post-nav-card post-nav-next">
+        <span class="post-nav-label">
+          Next
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+        </span>
+        <span class="post-nav-title">{{ next_post.title }}</span>
+      </a>
+    {% endif %}
+  </nav>
+
+</section>
+
+
+{% endblock %}

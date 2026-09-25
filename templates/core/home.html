@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="hero" id="home">
+  <p class="hero-kicker">~/portfolio $ whoami</p>
+  <h1 class="hero-name" data-decrypt data-decrypt-delay="150">Muhammad Xon</h1>
+  <p class="hero-role" data-decrypt-cycle data-decrypt-delay="550" data-roles="Software Engineer|Web-Developer|Freelancer|Problem Solver"></p>
+
+  <div class="hero-actions">
+    <a href="{% url 'project_list' %}" target="_blank" rel="noopener" class="btn-link primary">View Projects</a>
+  </div>
+
+  <div class="hero-social">
+    <a href="https://www.linkedin.com/in/muhammadkhon-asrorov-b11318399" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="4" />
+        <circle cx="8" cy="8.5" r="1" />
+        <path d="M8 11v6" />
+        <path d="M12 17v-3.5a2 2 0 0 1 4 0V17M12 13v4" />
+      </svg>
+    </a>
+    <a href="https://github.com/astrodevv" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 9l-3 3 3 3" />
+        <path d="M15 9l3 3-3 3" />
+      </svg>
+    </a>
+    <a href="https://t.me/xonmuhammadd" target="_blank" rel="noopener" class="social-icon" aria-label="Telegram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 2L11 13" />
+        <path d="M22 2l-7 20-4-9-9-4 20-7z" />
+      </svg>
+    </a>
+    <a href="https://x.com/muhammaddxon" target="_blank" rel="noopener" class="social-icon" aria-label="X">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4l16 16" />
+        <path d="M20 4L4 20" />
+      </svg>
+    </a>
+  </div>
+</section>
+
+<section class="section featured-projects" id="featured-projects">
+  <h2 class="section-title">Featured Projects</h2>
+  
+  <div class="featured-grid">
+    {% for project in projects %}
+    <article class="featured-card" data-reveal="scale">
+      <span class="featured-year">{{ project.date|date:"Y" }}</span>
+      <h3 class="featured-title">{{ project.title }}</h3>
+      <p class="featured-text">{{ project.text }}</p>
+      
+      <div class="featured-tags">
+        {% for tag in project.tags.all %}
+          <span class="skill-pill">{{ tag.name }}</span>
+        {% endfor %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
+  <a href="{% url 'project_list' %}" class="btn-link projects-more">View All Projects</a>
+</section>
+
+<section class="section latest-posts" id="latest-posts">
+  <h2 class="section-title">Latest Posts</h2>
+  
+  {% for post in blogs %}
+  <a href="{{ post.get_absolute_url }}" class="post-row" data-reveal="left">
+    <span class="post-date">{{ post.created_at|date:"d M Y" }}</span>
+    <span class="post-title">{{ post.title }}</span>
+  </a>
+  {% endfor %}
+  
+  <a href="{% url 'blog_list' %}" class="btn-link projects-more">View All Posts</a>
+</section>
+
+
+{% endblock %}

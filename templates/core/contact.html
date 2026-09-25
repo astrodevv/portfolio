@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Contact — Lorem Ipsum{% endblock %}
+
+{% block content %}
+
+<section class="section contact-page" id="contact">
+  <h1 class="section-title contact-heading">Contact Me</h1>
+  <p class="contact-subtitle">Feel free to reach out via email or social media.</p>
+
+  <!-- Pochtaga to'g'ridan-to'g'ri o'tish havolasi o'zgartirildi -->
+  <a href="mailto:muhammadhonasrorov3@gmail.com" class="contact-email-pill">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M4 7l8 6 8-6" /></svg>
+    muhammadhonasrorov3@gmail.com
+  </a>
+
+  <!-- Yuborilgan xabar holatini (Muvaffaqiyatli/Xato) ekranda ko'rsatish -->
+  {% if messages %}
+    <div style="margin: 20px 0; text-align: center;">
+      {% for message in messages %}
+        <p style="color: {% if message.tags == 'success' %}#4caf50{% else %}#f44336{% endif %}; font-size: 16px;">
+          {{ message }}
+        </p>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <form class="contact-form" method="POST" action="{% url 'contact' %}">
+    {% csrf_token %}
+
+    <div class="form-field">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+    </div>
+
+    <div class="form-field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="your@email.com" required>
+    </div>
+
+    <div class="form-field">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="6" placeholder="How can I help you?" required></textarea>
+    </div>
+
+    <button type="submit" class="btn-send">
+      Send Message
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13" /><path d="M22 2l-7 20-4-9-9-4 20-7z" /></svg>
+    </button>
+  </form>
+</section>
+
+
+{% endblock %}

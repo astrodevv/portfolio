@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Projects — Lorem Ipsum{% endblock %}
+
+{% block content %}
+
+<section class="section projects-page" id="projects">
+  <h1 class="section-title">Projects</h1>
+
+  <div class="projects-grid">
+    <!-- project_list orqali kelgan ro'yxatni ko'chirish -->
+    {% for item in project %}
+    <article class="project-card" data-reveal="scale">
+      <div class="project-card-image">
+        {% if item.image %}
+          <img src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy">
+        {% endif %}
+        <div class="project-card-overlay">
+          {% if item.live_url %}
+          <a href="{{ item.live_url }}" class="project-card-icon-btn" aria-label="View live site" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><path d="M15 3h6v6" /><path d="M10 14L21 3" /></svg>
+          </a>
+          {% endif %}
+          
+          {% if item.github_url %}
+          <a href="{{ item.github_url }}" class="project-card-icon-btn" aria-label="View on GitHub" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9l-3 3 3 3" /><path d="M15 9l3 3-3 3" /></svg>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="project-card-body">
+        <span class="project-card-year">{{ item.date|date:"Y" }}</span>
+        <h3 class="project-card-title">{{ item.title }}</h3>
+        <p class="project-card-text">{{ item.text }}</p>
+        
+        <div class="project-card-tags">
+          {% for tag in item.tags.all %}
+            <span class="skill-pill">{{ tag.name }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </article>
+    {% empty %}
+      <p>Projects not found.</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

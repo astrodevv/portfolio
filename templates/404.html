@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}404 — Page Not Found{% endblock %}
+
+{% block content %}
+
+<section class="section error-page" id="error">
+  <p class="hero-kicker">~/portfolio $ cd {{ request_path|default:"/unknown" }}</p>
+
+  <h1 class="error-code" data-decrypt data-decrypt-delay="150">404</h1>
+  <p class="error-message" data-decrypt data-decrypt-delay="500">Page Not Found</p>
+
+  <div class="terminal-card error-terminal">
+    <div class="dot-row">
+      <span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span>
+    </div>
+    <pre>bash: cd: {{ request_path|default:"/unknown" }}: No such file or directory</pre>
+  </div>
+
+  <a href="/" class="btn-pill">Back to Home</a>
+</section>
+
+{% endblock %}
